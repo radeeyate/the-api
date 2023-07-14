@@ -8,7 +8,8 @@ features:
 
 * password/pin generator (quite random)
 * rainbow (`curl -N https://api.radi8.dev/rainbow`, run in terminal)
-* Kids are much more accepting of other people than adults are.
+* Kids are much more...
 * memory info of my server
 * fake facts
 * Uptime stuff
+* amogus (`curl https://api.radi8.dev/amogus`)
