@@ -13,7 +13,7 @@ startTime = time.time()
 
 @app.get("/")
 def root():
-    return {"status": "ok", "version": 0.4, "uptime": time.time() - startTime, "docs": "/docs"}
+    return {"status": "ok", "version": 0.5, "uptime": time.time() - startTime, "docs": "/docs"}
 
 @app.get("/meminfo")
 def meminfo():
@@ -107,7 +107,20 @@ def fakefact():
         "The Loch Ness Monster is real",
         "Napoleon Bonaparte was extremely short",
         "Microwaving food removes its nutrients",
-        "The Moon landng was faked"
+        "The Moon landng was faked",
+        "Thyme is technically a tree",
+        "There are more than 30 blimps in the world",
+        "Gold nuggets were named after chicken nuggets - not the other way around",
+        "The first video uploaded to YouTube was taken down in 2016 for ToS violation",
+        "Your kneecap is the roundest part in your body",
+        "Bubbles have a seam",
+        "Peppermint can't be smelt by guinea pigs",
+        "NASA made powdered water",
+        "Thomas Edison invented the first light bulb",
+        "Electromagnetic radiation from cell phones and microwaves cause cancer",
+        "1/4 of the US population doesn't believe in the moon",
+        "Purified water is more dangerous to our health than tap water",
+        "The sea is only 4% water"
     )
     return Response(content = secrets.choice(facts))
 
