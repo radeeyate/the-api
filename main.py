@@ -12,7 +12,7 @@ startTime = time.time()
 
 
 @app.get("/")
-def root():
+async def root():
     return {
         "status": "ok",
         "version": 0.5,
@@ -22,13 +22,13 @@ def root():
 
 
 @app.get("/meminfo")
-def meminfo():
+async def meminfo():
     memory = psutil.virtual_memory()
     return {"total": memory.total, "available": memory.available, "used": memory.used}
 
 
 @app.get("/password")
-def generatePassword(
+async def generatePassword(
     length: int = Query(8, gt=0, lt=256),
     includeUppercase: bool = True,
     includeLowercase: bool = True,
@@ -65,7 +65,7 @@ def generatePassword(
 
 
 @app.get("/pin")
-def generatePin(length: int = Query(4, gt=3, lt=7)):
+async def generatePin(length: int = Query(4, gt=3, lt=7)):
     digits = string.digits
     pin = "".join(secrets.choice(digits) for _ in range(length))
 
@@ -86,7 +86,7 @@ async def rainbow():
     delay = 0.5
 
     async def generate_rainbow():
-        for _ in range(1):
+        while True:
             for i in range(len(rainbow_colors)):
                 color_index = i % len(rainbow_colors)
                 color = rainbow_colors[color_index]
@@ -97,7 +97,7 @@ async def rainbow():
 
 
 @app.get("/fakefact")
-def fakefact():
+async def fakefact():
     facts = (
         "Salty water boils quicker",
         "You swallow on average 8 spiders every year",
@@ -144,12 +144,12 @@ def fakefact():
 
 
 @app.get("/kidsaremuchmore")
-def kidsAreMuchMore():
+async def kidsAreMuchMore():
     return Response(
         content="Kids are much more accepting of other people than adults are."
     )
 
 
 @app.get("/amogus")
-def amogus():
+async def amogus():
     return Response(content=ansi.amogus, media_type="text/plain")
