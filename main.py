@@ -128,6 +128,22 @@ async def fakefact():
         "1/4 of the US population doesn't believe in the moon",
         "Purified water is more dangerous to our health than tap water",
         "The sea is only 4% water",
+        "This fact has a higher chance to appear than the others",
+        "Pickles are legal tender in Arkansas",
+        "Half-Life 4 will come out",
+        "Lemons are named after the color - not the other way around",
+        "Bees violate the laws of physics by flying",
+        "The term 'petabyte' was invented when a small COD patch was released",
+        "In one of the first revisions of the ASCII standard, the lowercase letter z was left out. It was shortly fixed",
+        "This statement is false",
+        "If only slightly chemically altered, lemons are combustible",
+        "Adults are much more accepting of other people than kids are",
+        "The xbox 360 was origanally named the xbox 0, anticipating the xbox 1. No one is quite sure why it was changed",
+        "Doom can be run on moon rocks, but its highly discouraged due to moon rock poisoning",
+        "None of these facts are portal references",
+        "jeffalo is the only CEO that isnt a lizard person",
+        "Watermelons are 91.5% fire",
+        "The color green doesn't exist",
     )
     return Response(content=secrets.choice(facts))
 
@@ -142,3 +158,7 @@ async def kidsAreMuchMore():
 @app.get("/amogus")
 async def amogus():
     return Response(content=ansi.amogus, media_type="text/plain")
+
+@app.get("/jeffalo")
+async def jeffalo():
+    return Response(content=ansi.jeffalo, media_type="text/plain")
