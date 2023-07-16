@@ -1,11 +1,15 @@
 from fastapi import FastAPI, Response, Query
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, JSONResponse
+from fastapi.encoders import jsonable_encoder
+from fastapi.routing import APIRoute
+from typing import List
 import time
 import string
 import secrets
 import asyncio
 import psutil
 import ansi
+import json
 
 app = FastAPI(title="radi8's api", description="radi8's multi-tool api")
 startTime = time.time()
@@ -19,6 +23,17 @@ async def root():
         "uptime": time.time() - startTime,
         "docs": "/docs",
     }
+
+
+@app.get("/routes")
+def getRoutes():
+    routes = []
+    for route in app.routes:
+        routeInfo = {}
+        routeInfo["path"] = route.path
+        routeInfo["methods"] = route.methods
+        routes.append(routeInfo)
+    return JSONResponse(content=jsonable_encoder(routes))
 
 
 @app.get("/meminfo")
@@ -73,7 +88,7 @@ async def generatePin(length: int = Query(4, gt=3, lt=7)):
 
 
 @app.get("/rainbow")
-async def rainbow():
+async def rainbow(times: int = 0):
     rainbow_colors = [
         "\033[38;5;196m",  # red
         "\033[38;5;202m",  # orange
@@ -86,12 +101,20 @@ async def rainbow():
     delay = 0.5
 
     async def generate_rainbow():
-        while True:
-            for i in range(len(rainbow_colors)):
-                color_index = i % len(rainbow_colors)
-                color = rainbow_colors[color_index]
-                yield color + "███████████\033[0m\n"
-                await asyncio.sleep(delay)
+        if times == 0:
+            while True:
+                for i in range(len(rainbow_colors)):
+                    color_index = i % len(rainbow_colors)
+                    color = rainbow_colors[color_index]
+                    yield color + "███████████\033[0m\n"
+                    await asyncio.sleep(delay)
+        else:
+            for _ in range(times):
+                for i in range(len(rainbow_colors)):
+                    color_index = i % len(rainbow_colors)
+                    color = rainbow_colors[color_index]
+                    yield color + "███████████\033[0m\n"
+                    await asyncio.sleep(delay)
 
     return StreamingResponse(generate_rainbow(), media_type="text/plain")
 
@@ -159,6 +182,15 @@ async def kidsAreMuchMore():
 async def amogus():
     return Response(content=ansi.amogus, media_type="text/plain")
 
+
 @app.get("/jeffalo")
 async def jeffalo():
     return Response(content=ansi.jeffalo, media_type="text/plain")
+
+
+@app.get("/flags/{flag}")
+async def prideflag(flag: str):
+    try:
+        return Response(content=ansi.flags[flag], media_type="text/plain")
+    except:
+        return {"error": "flag not found"}

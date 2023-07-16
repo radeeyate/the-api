@@ -13,3 +13,4 @@ features:
 * fake facts
 * Uptime stuff
 * amogus (`curl https://api.radi8.dev/amogus`)
+* pride flags (cool)
