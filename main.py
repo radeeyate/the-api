@@ -196,6 +196,6 @@ def flags():
 @app.get("/flags/{flag}")
 async def prideflag(flag: str):
     try:
-        return Response(content=ansi.flags[flag], media_type="text/plain")
+        return Response(f"content=ansi.flags[flag] \n", media_type="text/plain")
     except:
         return {"error": "flag not found"}
