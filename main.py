@@ -1,7 +1,5 @@
 from fastapi import FastAPI, Response, Query
 from fastapi.responses import StreamingResponse, JSONResponse
-from fastapi.encoders import jsonable_encoder
-from fastapi.routing import APIRoute
 from typing import List
 import time
 import string
@@ -9,7 +7,6 @@ import secrets
 import asyncio
 import psutil
 import ansi
-import json
 
 app = FastAPI(title="radi8's api", description="radi8's multi-tool api")
 startTime = time.time()
@@ -196,6 +193,6 @@ def flags():
 @app.get("/flags/{flag}")
 async def prideflag(flag: str):
     try:
-        return Response(content=ansi.flags[flag], media_type="text/plain")
+        return Response(content=f"{ansi.flags[flag]}\n", media_type="text/plain")
     except:
         return {"error": "flag not found"}
