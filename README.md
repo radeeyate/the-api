@@ -13,4 +13,4 @@ features:
 * fake facts
 * Uptime stuff
 * amogus (`curl https://api.radi8.dev/amogus`)
-* pride flags (cool)
+* pride flags (cool) `/flags` for a list of flags, and `/flags/{flag}` for the flag

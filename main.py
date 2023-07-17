@@ -187,6 +187,9 @@ async def amogus():
 async def jeffalo():
     return Response(content=ansi.jeffalo, media_type="text/plain")
 
+@app.get("/flags")
+def flags():
+    return list(ansi.flags.keys())
 
 @app.get("/flags/{flag}")
 async def prideflag(flag: str):
