@@ -19,7 +19,7 @@ startTime = time.time()
 async def root():
     return {
         "status": "ok",
-        "version": 0.5,
+        "version": 0.8, # probably
         "uptime": time.time() - startTime,
         "docs": "/docs",
     }
