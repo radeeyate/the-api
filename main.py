@@ -19,7 +19,7 @@ startTime = time.time()
 async def root():
     return {
         "status": "ok",
-        "version": 0.8, # probably
+        "version": 0.8,  # probably
         "uptime": time.time() - startTime,
         "docs": "/docs",
     }
@@ -187,9 +187,11 @@ async def amogus():
 async def jeffalo():
     return Response(content=ansi.jeffalo, media_type="text/plain")
 
+
 @app.get("/flags")
 def flags():
     return list(ansi.flags.keys())
+
 
 @app.get("/flags/{flag}")
 async def prideflag(flag: str):
