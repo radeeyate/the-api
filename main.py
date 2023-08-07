@@ -1,6 +1,12 @@
-from fastapi import FastAPI, Response, Query
+from fastapi import FastAPI, Response, Query, Header
 from fastapi.responses import StreamingResponse, JSONResponse
+<<<<<<< Updated upstream
 from typing import List
+=======
+from fastapi.encoders import jsonable_encoder
+from fastapi.routing import APIRoute
+from typing import List, Annotated
+>>>>>>> Stashed changes
 import time
 import string
 import secrets
@@ -191,7 +197,9 @@ def flags():
 
 
 @app.get("/flags/{flag}")
-async def prideflag(flag: str):
+async def prideflag(flag: str, user_agent: Annotated[str | None, Header()] = None):
+    if not user_agent.startswith("curl/"):
+        return Response(content="please use curl")
     try:
         return Response(content=f"{ansi.flags[flag]}\n", media_type="text/plain")
     except:
