@@ -1,12 +1,9 @@
 from fastapi import FastAPI, Response, Query, Header
 from fastapi.responses import StreamingResponse, JSONResponse
-<<<<<<< Updated upstream
 from typing import List
-=======
 from fastapi.encoders import jsonable_encoder
 from fastapi.routing import APIRoute
 from typing import List, Annotated
->>>>>>> Stashed changes
 import time
 import string
 import secrets
