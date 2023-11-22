@@ -1,6 +1,6 @@
 # the api
 
-yeah, I an API that I made because I was bored and wanted to do a thing.
+I made an API that I made because I was bored and wanted to do a thing.
 
 the docs are located at https://api.radi8.dev/docs
 
