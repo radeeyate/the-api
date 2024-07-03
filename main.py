@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Response, Query, Header
+from fastapi import FastAPI, Response, Query, Header, Request, Form
 from fastapi.responses import StreamingResponse, JSONResponse
 from typing import List
 from fastapi.encoders import jsonable_encoder
@@ -10,9 +10,19 @@ import secrets
 import asyncio
 import psutil
 import ansi
+import os
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 
 app = FastAPI(title="radi8's api", description="radi8's multi-tool api")
 startTime = time.time()
+
+limiter = Limiter(key_func=get_remote_address)
+app = FastAPI()
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 
 @app.get("/")
@@ -201,3 +211,15 @@ async def prideflag(flag: str, user_agent: Annotated[str | None, Header()] = Non
         return Response(content=f"{ansi.flags[flag]}\n", media_type="text/plain")
     except:
         return {"error": "flag not found"}
+
+
+@app.post("/sparkshell-email")
+@limiter.limit("2/minute")
+async def sparkshellEmail(request: Request, email: str = Form()):
+    if not os.path.isfile("./sparkshell-emails.txt"): # don't worry, nobody else will see this !
+        with open("./sparkshell-emails.txt", "w") as f:
+            f.write("")
+    with open("./sparkshell-emails.txt", "a") as f:
+        f.write(f"{email}\n")
+
+    return Response(content="thanks! :)")
